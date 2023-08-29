@@ -53,8 +53,8 @@ function App() {
         ? 
         <ClipLoader/>
         : 
-        articles.map((article) => (
-            <Article article={article} />
+        articles.map((article, index) => (
+            <Article article={article} index={index+page*20} />
           ))
         }
       </main>
