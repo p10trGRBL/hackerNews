@@ -1,9 +1,21 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  width: 100%;
 }
+
+
+.article {
+  width: 100%;
+  min-height: 50px;
+  background-color: bisque;
+  border: 1px solid black;
+}
+
+
+
+
 
 
 @keyframes logo-spin {
