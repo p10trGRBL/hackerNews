@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
-import './App.css';
+import './Article.css';
 
 
 
 export default function Article ({article}) {
 
     useEffect(()=>{
-        console.log(article)
     },[])
 
     return (<div className='article'>
+        {article.title}
     </div>);
 }
 
