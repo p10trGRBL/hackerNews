@@ -8,8 +8,6 @@ import Article from './Article.jsx'
 import SearchForm from './SearchForm'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   const [search, setsearch] = useState("");
 
   const [page, setPage] = useState(0);
@@ -18,9 +16,24 @@ function App() {
 
   const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
+  // useEffect(()=>{
+  //   setLoading(true);
+  //   fetch(`http://hn.algolia.com/api/v1/search`)
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     // console.log(data.hits);
+  //     setArticles(data.hits);
+  //     setLoading(false);
+  //   })
+  //   .catch(error => console.error(error));
+  // },[]);
+
+
+  useEffect(()=> {
+    console.log("SEARCH OR PAGE STATE HAS BEEN SET");
+    console.log(`fetching: http://hn.algolia.com/api/v1/search?query=${search}&page=${page}`);
     setLoading(true);
-    fetch(`http://hn.algolia.com/api/v1/search?query=react&page=${page}`)
+    fetch(`http://hn.algolia.com/api/v1/search?query=${search}&page=${page}`)
     .then(response => response.json())
     .then(data => {
       // console.log(data.hits);
@@ -28,7 +41,7 @@ function App() {
       setLoading(false);
     })
     .catch(error => console.error(error));
-  },[]);
+  },[search, page]);
 
 
 
@@ -40,8 +53,8 @@ function App() {
         ? 
         <ClipLoader/>
         : 
-        articles.map((article) => (
-            <Article article={article} />
+        articles.map((article, index) => (
+            <Article article={article} index={index+page*20} />
           ))
         }
       </main>
