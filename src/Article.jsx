@@ -29,7 +29,7 @@ export default function Article({ article, index }) {
 
       <span className="second_line">
         <span className="points">{article.points} points | </span>
-        <span className="comments"> {article.num_comments} comments </span>
+        <a href={"https://news.ycombinator.com/item?id="+article.objectID} className="comments"> {article.num_comments} comments </a>
       </span>
 
       <br />
