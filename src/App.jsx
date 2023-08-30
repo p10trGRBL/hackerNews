@@ -37,6 +37,11 @@ function App() {
       // console.log(data.hits);
       setArticles(data.hits);
       setLoading(false);
+      console.log(' ------------------- start article entries ------------------------ ')
+      for (const [key, value] of Object.entries(data.hits[0])) {
+        console.log(`${key}: ${value}`);
+      }
+      console.log(' ------------------- end article entries ------------------------ ')
     })
     .catch(error => {
       console.error(error);

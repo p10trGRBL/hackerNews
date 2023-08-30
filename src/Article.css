@@ -2,8 +2,21 @@
 
 
 .article {
-    width: 100%;
-    min-height: 50px;
-    background-color: bisque;
-    border: 1px solid black;
-  }
+  width: 100%;
+  min-height: 50px;
+  background-color: bisque;
+  border: 1px solid black;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: flex-start;
+}
+
+.title {
+  margin-left: 20px;
+}
+
+.domain {
+  color: darkolivegreen;
+  margin-left: 10px;
+}
+
