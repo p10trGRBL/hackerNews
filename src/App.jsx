@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css';
 // import PacmanLoader from 'react-spinner/PacmanLoader';
 import ClipLoader from "react-spinners/ClipLoader";
@@ -39,20 +37,43 @@ function App() {
       // console.log(data.hits);
       setArticles(data.hits);
       setLoading(false);
+      console.log(' ------------------- start article entries ------------------------ ')
+      for (const [key, value] of Object.entries(data.hits[0])) {
+        console.log(`${key}: ${value}`);
+      }
+      console.log(' ------------------- end article entries ------------------------ ')
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.error(error);
+      alert(`something went wrong fetching http://hn.algolia.com/api/v1/search?query=${search}&page=${page}`);
+    });
   },[search, page]);
 
+  function turnLeft() {
+    setPage(page-1);
+  }
+
+  function turnRight() {
+    setPage(page+1); 
+  }
 
 
   return (
     <>
       <header></header>
       <main>
+        <div className='pagination'>
+          <button disabled={page===0} onClick={turnLeft}>&larr;</button>
+          <button onClick={turnRight}>&rarr;</button>
+        </div>
       {loading
         ? 
         <ClipLoader/>
         : 
+        !articles.length 
+        ?
+        "no matching articles"
+        :
         articles.map((article, index) => (
             <Article article={article} index={index+page*20} />
           ))
