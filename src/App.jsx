@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react'
 import './App.css';
 // import PacmanLoader from 'react-spinner/PacmanLoader';
@@ -14,6 +15,8 @@ function App() {
 
   const [loading, setLoading] = useState(true);
 
+  const [paginator, setPaginator] = useState(false);
+
   // useEffect(()=>{
   //   setLoading(true);
   //   fetch(`http://hn.algolia.com/api/v1/search`)
@@ -26,26 +29,30 @@ function App() {
   //   .catch(error => console.error(error));
   // },[]);
 
+  
 
   useEffect(()=> {
     console.log("SEARCH OR PAGE STATE HAS BEEN SET");
     console.log(`fetching: http://hn.algolia.com/api/v1/search?query=${search}&page=${page}`);
     setLoading(true);
+    setPaginator(false);
     fetch(`http://hn.algolia.com/api/v1/search?query=${search}&page=${page}`)
     .then(response => response.json())
     .then(data => {
       // console.log(data.hits);
       setArticles(data.hits);
       setLoading(false);
-      console.log(' ------------------- start article entries ------------------------ ')
-      for (const [key, value] of Object.entries(data.hits[0])) {
-        console.log(`${key}: ${value}`);
-      }
-      console.log(' ------------------- end article entries ------------------------ ')
+      //console.log(' ------------------- start article entries ------------------------ ')
+      //for (const [key, value] of Object.entries(data.hits[10])) {
+      //  console.log(`${key}: ${value}`);
+      //}
+      //console.log(' ------------------- end article entries ------------------------ ')
+      setPaginator(true);
     })
     .catch(error => {
       console.error(error);
       alert(`something went wrong fetching http://hn.algolia.com/api/v1/search?query=${search}&page=${page}`);
+      setPaginator(false);
     });
   },[search, page]);
 
@@ -60,11 +67,11 @@ function App() {
 
   return (
     <>
-      <header></header>
+      <header><a href="/"><img src='./src/assets/images.jpeg'/> </a></header>
       <main>
-        <div className='pagination'>
-          <button disabled={page===0} onClick={turnLeft}>&larr;</button>
-          <button onClick={turnRight}>&rarr;</button>
+        <div className = {paginator ? "" : 'beGone'} id='pagination'>
+          <button className='arrows' disabled={page===0} onClick={turnLeft}>&larr;</button>
+          <button className='arrows' onClick={turnRight}>&rarr;</button>
         </div>
       {loading
         ? 
@@ -72,7 +79,10 @@ function App() {
         : 
         !articles.length 
         ?
-        "no matching articles"
+        <div>
+        <img className="oops" src="./src/assets/oops.jpg"/>
+        <p><b>no matching articles</b></p> 
+        </div>
         :
         articles.map((article, index) => (
             <Article article={article} index={index+page*20} />
@@ -80,6 +90,7 @@ function App() {
         }
       </main>
       <footer>
+        <hr></hr>
         <SearchForm setsearch={setsearch}/>
       </footer>
     </>

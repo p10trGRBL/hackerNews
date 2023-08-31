@@ -4,9 +4,12 @@
   text-align: center;
   width: 100%;
 }
+.oops {
+  width: 30%;
+  height: auto;
+}
 
-
-.pagination {
+#pagination {
   width: 120px;
   height: 50px;
   display: flex;
@@ -14,8 +17,17 @@
   margin-right: 0;
   margin-left: auto;
 }
-
-
+.arrows {
+  color: #E90F11;
+  background-color: #FEDF0D;
+}
+.arrows:disabled {
+  color: grey;
+  
+}
+.beGone {
+  display: none !important;
+}
 
 
 
