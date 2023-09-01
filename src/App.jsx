@@ -54,9 +54,9 @@ function App() {
       })
       .catch((error) => {
         console.error(error);
-        alert(
-          `something went wrong fetching http://hn.algolia.com/api/v1/search?query=${search}&page=${page}`
-        );
+        // alert(
+        //   `something went wrong fetching http://hn.algolia.com/api/v1/search?query=${search}&page=${page}`
+        // );
         setPaginator(false);
       });
   }, [search, page]);
